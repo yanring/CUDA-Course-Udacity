@@ -1,0 +1,145 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /share/CUDA-Course-Udacity/cs344/Problem Sets/Problem Set 1/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e4198/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e4198.dir/build.make CMakeFiles/cmTC_e4198.dir/build
+make[1]: 进入目录“/share/CUDA-Course-Udacity/cs344/Problem Sets/Problem Set 1/CMakeFiles/CMakeTmp”
+Building C object CMakeFiles/cmTC_e4198.dir/CheckSymbolExists.c.o
+/opt/cuda/bin/gcc   -fPIC    -o CMakeFiles/cmTC_e4198.dir/CheckSymbolExists.c.o   -c "/share/CUDA-Course-Udacity/cs344/Problem Sets/Problem Set 1/CMakeFiles/CMakeTmp/CheckSymbolExists.c"
+Linking C executable cmTC_e4198
+/home/yan/anaconda3/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e4198.dir/link.txt --verbose=1
+/opt/cuda/bin/gcc -fPIC     -rdynamic CMakeFiles/cmTC_e4198.dir/CheckSymbolExists.c.o  -o cmTC_e4198 
+/usr/bin/ld: CMakeFiles/cmTC_e4198.dir/CheckSymbolExists.c.o: in function `main':
+CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+make[1]: *** [CMakeFiles/cmTC_e4198.dir/build.make:87：cmTC_e4198] 错误 1
+make[1]: 离开目录“/share/CUDA-Course-Udacity/cs344/Problem Sets/Problem Set 1/CMakeFiles/CMakeTmp”
+make: *** [Makefile:121：cmTC_e4198/fast] 错误 2
+
+File /share/CUDA-Course-Udacity/cs344/Problem Sets/Problem Set 1/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /share/CUDA-Course-Udacity/cs344/Problem Sets/Problem Set 1/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_0c284/fast"
+/usr/bin/make -f CMakeFiles/cmTC_0c284.dir/build.make CMakeFiles/cmTC_0c284.dir/build
+make[1]: 进入目录“/share/CUDA-Course-Udacity/cs344/Problem Sets/Problem Set 1/CMakeFiles/CMakeTmp”
+Building C object CMakeFiles/cmTC_0c284.dir/CheckFunctionExists.c.o
+/opt/cuda/bin/gcc   -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_0c284.dir/CheckFunctionExists.c.o   -c /home/yan/anaconda3/share/cmake-3.12/Modules/CheckFunctionExists.c
+Linking C executable cmTC_0c284
+/home/yan/anaconda3/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0c284.dir/link.txt --verbose=1
+/opt/cuda/bin/gcc -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_0c284.dir/CheckFunctionExists.c.o  -o cmTC_0c284 -lpthreads 
+/usr/bin/ld: 找不到 -lpthreads
+collect2: error: ld returned 1 exit status
+make[1]: *** [CMakeFiles/cmTC_0c284.dir/build.make:87：cmTC_0c284] 错误 1
+make[1]: 离开目录“/share/CUDA-Course-Udacity/cs344/Problem Sets/Problem Set 1/CMakeFiles/CMakeTmp”
+make: *** [Makefile:121：cmTC_0c284/fast] 错误 2
+
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /opt/cuda/bin/gcc 
+Build flags: 
+Id flags: 
+
+The output was:
+No such file or directory
+
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /opt/cuda/bin/gcc 
+Build flags: 
+Id flags: -c
+
+The output was:
+No such file or directory
+
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /opt/cuda/bin/gcc 
+Build flags: 
+Id flags: -Aa
+
+The output was:
+No such file or directory
+
+
+Checking whether the C compiler is IAR using "" did not match "IAR .+ Compiler":
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: /opt/cuda/bin/g++ 
+Build flags: 
+Id flags: 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: /opt/cuda/bin/g++ 
+Build flags: 
+Id flags: -c
+
+The output was:
+No such file or directory
+
+
+Checking whether the CXX compiler is IAR using "" did not match "IAR .+ Compiler":
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /opt/cuda/bin/gcc 
+Build flags: 
+Id flags: 
+
+The output was:
+No such file or directory
+
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /opt/cuda/bin/gcc 
+Build flags: 
+Id flags: -c
+
+The output was:
+No such file or directory
+
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /opt/cuda/bin/gcc 
+Build flags: 
+Id flags: -Aa
+
+The output was:
+No such file or directory
+
+
+Checking whether the C compiler is IAR using "" did not match "IAR .+ Compiler":
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: /opt/cuda/bin/g++ 
+Build flags: 
+Id flags: 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: /opt/cuda/bin/g++ 
+Build flags: 
+Id flags: -c
+
+The output was:
+No such file or directory
+
+
+Checking whether the CXX compiler is IAR using "" did not match "IAR .+ Compiler":
