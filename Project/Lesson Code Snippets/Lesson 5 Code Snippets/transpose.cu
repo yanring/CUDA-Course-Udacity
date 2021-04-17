@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "gputimer.h"
 
-const int N= 1024;		// matrix size is NxN
-const int K= 32;				// tile size is KxK
+const int N= 4096;		// matrix size is NxN
+const int K= 16;				// tile size is KxK
 
 // Utility functions: compare, print, and fill matrices
 #define checkCudaErrors(val) check( (val), #val, __FILE__, __LINE__)
@@ -109,6 +109,20 @@ transpose_parallel_per_element_tiled(float in[], float out[])
 	out[(out_corner_i + x) + (out_corner_j + y)*N] = tile[x][y];
 }
 
+__global__ void 
+transpose_parallel_per_element_tiled_yanring(float in[], float out[])
+{
+	int in_i = blockIdx.x * K, in_j = blockIdx.y * K;
+	int out_i = blockIdx.y * K, out_j = blockIdx.x * K;
+	int x = threadIdx.x, y = threadIdx.y;
+
+	__shared__ float tile[K][K];
+	tile[y][x] = in[(in_i+x)*N+(in_j+y)];
+	__syncthreads();
+	out[(out_j+y)+(out_i+x)*N] = tile[x][y];
+
+}
+
 // to be launched with one thread per element, in (tilesize)x(tilesize) threadblocks
 // thread blocks read & write tiles, in coalesced fashion
 // adjacent threads read adjacent input elements, write adjacent output elmts
@@ -174,8 +188,9 @@ transpose_parallel_per_element_tiled_padded16(float in[], float out[])
 
 int main(int argc, char **argv)
 {
-	int numbytes = N * N * sizeof(float);
-
+	printf("%d",1);
+	long long numbytes = N * N * sizeof(float);
+	printf("%d",numbytes);
 	float *in = (float *) malloc(numbytes);
 	float *out = (float *) malloc(numbytes);
 	float *gold = (float *) malloc(numbytes);
@@ -200,12 +215,12 @@ int main(int argc, char **argv)
  * But this makes for messy code and our goal is teaching, not detailed benchmarking.
  */
 
-	timer.Start();
-	transpose_serial<<<1,1>>>(d_in, d_out);
-	timer.Stop();
-	cudaMemcpy(out, d_out, numbytes, cudaMemcpyDeviceToHost);
-	printf("transpose_serial: %g ms.\nVerifying transpose...%s\n", 
-	       timer.Elapsed(), compare_matrices(out, gold) ? "Failed" : "Success");
+	// timer.Start();
+	// transpose_serial<<<1,1>>>(d_in, d_out);
+	// timer.Stop();
+	// cudaMemcpy(out, d_out, numbytes, cudaMemcpyDeviceToHost);
+	// printf("transpose_serial: %g ms.\nVerifying transpose...%s\n", 
+	//        timer.Elapsed(), compare_matrices(out, gold) ? "Failed" : "Success");
 
 	timer.Start();
 	transpose_parallel_per_row<<<1,N>>>(d_in, d_out);
@@ -225,10 +240,10 @@ int main(int argc, char **argv)
 		   timer.Elapsed(), compare_matrices(out, gold) ? "Failed" : "Success");
 
 	timer.Start();
-	transpose_parallel_per_element_tiled<<<blocks,threads>>>(d_in, d_out);
+	transpose_parallel_per_element_tiled_yanring<<<blocks,threads>>>(d_in, d_out);
 	timer.Stop();
 	cudaMemcpy(out, d_out, numbytes, cudaMemcpyDeviceToHost);
-	printf("transpose_parallel_per_element_tiled %dx%d: %g ms.\nVerifying ...%s\n", 
+	printf("transpose_parallel_per_element_tiled_yanring %dx%d: %g ms.\nVerifying ...%s\n", 
 		   K, K, timer.Elapsed(), compare_matrices(out, gold) ? "Failed" : "Success");
 	
 	dim3 blocks16x16(N/16,N/16); // blocks per grid

@@ -1,3 +1,0 @@
-/share/CUDA-Course-Udacity/playground/CMakeFiles/rebuild_cache.dir
-/share/CUDA-Course-Udacity/playground/CMakeFiles/edit_cache.dir
-/share/CUDA-Course-Udacity/playground/CMakeFiles/DisplayImage.dir
